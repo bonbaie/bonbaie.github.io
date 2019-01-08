@@ -1,0 +1,28 @@
+
+body {
+  background-image: url("bg0.jpg");
+  background-size: cover;
+}
+
+#Folder1{
+  width: 200px;
+
+  position: relative;
+  bottom: 1000px;
+  right: 2000px;
+}
+
+#Folder2{
+  width: 200px;
+
+  position: relative;
+  bottom: 600px;
+  right: 1790px;
+}
+
+#Q1{
+  position: relative;
+
+  left: 1200px;
+  top: 500px;
+}

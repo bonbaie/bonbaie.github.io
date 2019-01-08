@@ -1,19 +1,121 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>Sheets APIのれんしゅう</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title></title>
+
+  <link rel="stylesheet" href="Lastkadai.css">
+  <script type="text/javascript" language="javascript">
+    let donut1 = false;
+    let donut2 = false;
+    function onButtonClick() {
+
+
+      target = document.getElementById("output");
+
+      fetch("https://sheets.googleapis.com/v4/spreadsheets/1CZcHYZkAj7rP87FHUlv5WwpZeVYjv6muFsMwrxuNMcA/values/data?key=AIzaSyCwjJMd7rj0hzO1vxvGNGW__kenhJ2TqOw").then(
+          response => {
+            return response.json();
+
+          }
+      ).then(
+          json => {
+            let html = "<ul>";
+            console.log(json);
+
+            // 入力文字を取得
+            let input = document.querySelector("#id_textBox1").value;
+            // 入力文字とSheetsの文字が一致したかどうかを記録するフラグ変数
+
+            let inputMatched = false;
+            let inputMatched2 = false;
+
+            let inputMatchedc = false;
+            json.values.forEach(row => {
+                  // テキストボックス入力値とSheetsが1回でも一致したらフラグをtrueにする
+                  if (row[0] === input) {
+                    inputMatched = true;
+                    donut1 = true;
+                    html = `<li>${row[1]}</li>`;
+                  }
+
+
+                  if (row[1] === input) {//B2と一致
+                    inputMatched2 = true;
+                    donut2 = true;
+                    html = `<li>${row[2]}</li>`;//A2がでてる
+                  }
+                }
+            );
+
+            json.values.forEach(column => {
+                  if (column[1] === input) {
+                    inputMatchedc = true;
+                    html = `<li>${column[2]}</li>`;//A2がでてる
+                  }
+                }
+            );
+
+            html += "</ul>";
+            // forEach内で一つでも一致するものがあればinputMachedがtrueになっている
+            if (inputMatched) {
+
+              html += "<b>一致した文字列あり</b>";
+              document.querySelector("#result").innerHTML = html;
+            }
+
+            if (inputMatched2) {
+              html += "<b>一致した文字列あり２</b>";
+              document.querySelector("#result").innerHTML = html;
+            }
+
+            if (inputMatchedc) {
+              html += "<b>一致した文字列あり３</b>";
+              document.querySelector("#result").innerHTML = html;
+            }
+
+            if (donut1)
+            {
+              document.querySelector('#Folder2').style.visibility = 'visible';
+            }
+
+          }
+      );
+    }
+    function imitative() {
+
+      document.querySelector('#Q1').style.visibility = 'hidden';
+    }
+
+    function imitators() {
+      document.querySelector('#Q1').style.visibility = 'visible';
+    }
+
+    function Q2() {
+      if(donut1)
+      {
+        document.querySelector('#q2').style.visibility = 'visible';
+      }
+    }
+
+    function Q2los() {
+      document.querySelector('#q2').style.visibility = 'hidden';
+    }
+
+  </script>
+
 </head>
 <body>
 
+
+<img id="Q1" src="Q1.png" style="visibility: hidden" onclick="imitative();" />
+<img id="Folder2" src="Folder2.png" style="visibility: hidden" onclick="Q2();"/>
+<img id="Folder1" src="Folder1.png" onclick="imitators();" />
+<img id="q2" src="q2.png" style="visibility: hidden" onclick="Q2los();"/>
+<input name="textBox1" id="id_textBox1" type="text" value="" />
+<input type="button" value="Exec" onclick="onButtonClick();" />
+
+<hr/>
 <div id="result"></div>
-<p>
-
-  <input type="text" id="zip">
-  <script src="LastKadai.js"></script>
-  <button id="search" onclick="SearchAdress()">入力</button>
-
-</p>
-
 </body>
 </html>
