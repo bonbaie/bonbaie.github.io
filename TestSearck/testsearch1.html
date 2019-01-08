@@ -5,80 +5,94 @@
   <title></title>
 
   <script type="text/javascript" language="javascript">
+      let donut1 = false;
       function onButtonClick() {
 
-      let doinput1 = true;
+
+        target = document.getElementById("output");
+
+        fetch("https://sheets.googleapis.com/v4/spreadsheets/1CZcHYZkAj7rP87FHUlv5WwpZeVYjv6muFsMwrxuNMcA/values/data?key=AIzaSyCwjJMd7rj0hzO1vxvGNGW__kenhJ2TqOw").then(
+            response => {
+              return response.json();
+
+            }
+        ).then(
+            json => {
+              let html = "<ul>";
+              console.log(json);
+
+              // 入力文字を取得
+              let input = document.querySelector("#id_textBox1").value;
+              // 入力文字とSheetsの文字が一致したかどうかを記録するフラグ変数
+
+              let inputMatched = false;
+              let inputMatched2 = false;
+
+              let inputMatchedc = false;
+              json.values.forEach(row => {
+                    // テキストボックス入力値とSheetsが1回でも一致したらフラグをtrueにする
+                    if (row[0] === input) {
+                      inputMatched = true;
+                      donut1 = true;
+                      html = `<li>${row[1]}</li>`;
+                    }
 
 
-      target = document.getElementById("output");
+                    if (row[1] === input) {//B2と一致
+                      inputMatched2 = true;
+                      html = `<li>${row[2]}</li>`;//A2がでてる
+                    }
+                  }
+              );
 
-      fetch("https://sheets.googleapis.com/v4/spreadsheets/1CZcHYZkAj7rP87FHUlv5WwpZeVYjv6muFsMwrxuNMcA/values/data?key=AIzaSyCwjJMd7rj0hzO1vxvGNGW__kenhJ2TqOw").then(
-          response => {
-            return response.json();
+              json.values.forEach(column => {
+                    if (column[1] === input) {
+                      inputMatchedc = true;
+                      html = `<li>${column[2]}</li>`;//A2がでてる
+                    }
+                  }
+              );
 
-          }
-      ).then(
-          json => {
-            let html = "<ul>";
-            console.log(json);
+              html += "</ul>";
+              // forEach内で一つでも一致するものがあればinputMachedがtrueになっている
+              if (inputMatched) {
 
-            // 入力文字を取得
-            let input = document.querySelector("#id_textBox1").value;
-            // 入力文字とSheetsの文字が一致したかどうかを記録するフラグ変数
-
-            let inputMatched = false;
-            let inputMatched2 = false;
-
-            let inputMatchedc = false;
-            json.values.forEach(row => {
-              // テキストボックス入力値とSheetsが1回でも一致したらフラグをtrueにする
-              if (row[0] === input) {
-                    inputMatched = true;
-                    html = `<li>${row[1]}</li>`;
+                html += "<b>一致した文字列あり</b>";
+                document.querySelector("#result").innerHTML = html;
               }
 
-
-
-              if (row[1] === input){//B2と一致
-                inputMatched2 = true;
-                html = `<li>${row[2]}</li>`;//A2がでてる
+              if (inputMatched2) {
+                html += "<b>一致した文字列あり２</b>";
+                document.querySelector("#result").innerHTML = html;
               }
-                }
-            );
 
-            json.values.forEach(column =>{
-              if(column[1] === input){
-                inputMatchedc = true;
-                html = `<li>${column[2]}</li>`;//A2がでてる
+              if (inputMatchedc) {
+                html += "<b>一致した文字列あり３</b>";
+                document.querySelector("#result").innerHTML = html;
               }
+
+              if (donut1)
+              {
+                document.querySelector('#Folder2').style.visibility = 'visible';
+              }
+
             }
-            );
-
-            html += "</ul>";
-            // forEach内で一つでも一致するものがあればinputMachedがtrueになっている
-            if (inputMatched) {
-
-              html += "<b>一致した文字列あり</b>";
-              document.querySelector("#result").innerHTML = html;
-            }
-
-            if(inputMatched2){
-              html += "<b>一致した文字列あり２</b>";
-              document.querySelector("#result").innerHTML = html;
-            }
-
-            if(inputMatchedc){
-              html += "<b>一致した文字列あり３</b>";
-              document.querySelector("#result").innerHTML = html;
-            }
-
-          }
-      );
-    }
-
+        );
+      }
     function imitative() {
 
-      document.querySelector('#test').style.visibility = 'hidden';
+      document.querySelector('#Q1').style.visibility = 'hidden';
+    }
+
+    function imitators() {
+      document.querySelector('#Q1').style.visibility = 'visible';
+    }
+
+    function f2() {
+        if(donut1)
+        {
+          document.querySelector('Folder2').style.visibility = 'visible';
+        }
     }
 
   </script>
@@ -86,8 +100,10 @@
 </head>
 <body>
 
-  <img id="Q1" src="Q1.png">
-  <img id="test" src="Folder1.png" onclick="imitative();" />
+  <d>当てはまる英数字を入力しなさい</d>
+  <img id="Q1" src="Q1.png" style="visibility: hidden" onclick="imitative();" />
+  <img id="Folder2" src="Folder2.png" style="visibility: hidden"/>
+  <img id="test" src="Folder1.png" onclick="imitators();" />
   <input name="textBox1" id="id_textBox1" type="text" value="" />
   <input type="button" value="Exec" onclick="onButtonClick();" />
 
