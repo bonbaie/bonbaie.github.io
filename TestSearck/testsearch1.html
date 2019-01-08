@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title></title>
+
+  <script type="text/javascript" language="javascript">
+      function onButtonClick() {
+
+      let doinput1 = true;
+
+
+      target = document.getElementById("output");
+
+      fetch("https://sheets.googleapis.com/v4/spreadsheets/1CZcHYZkAj7rP87FHUlv5WwpZeVYjv6muFsMwrxuNMcA/values/data?key=AIzaSyCwjJMd7rj0hzO1vxvGNGW__kenhJ2TqOw").then(
+          response => {
+            return response.json();
+
+          }
+      ).then(
+          json => {
+            let html = "<ul>";
+            console.log(json);
+
+            // 入力文字を取得
+            let input = document.querySelector("#id_textBox1").value;
+            // 入力文字とSheetsの文字が一致したかどうかを記録するフラグ変数
+
+            let inputMatched = false;
+            let inputMatched2 = false;
+
+            let inputMatchedc = false;
+            json.values.forEach(row => {
+              // テキストボックス入力値とSheetsが1回でも一致したらフラグをtrueにする
+              if (row[0] === input) {
+                    inputMatched = true;
+                    html = `<li>${row[1]}</li>`;
+              }
+
+
+
+              if (row[1] === input){//B2と一致
+                inputMatched2 = true;
+                html = `<li>${row[2]}</li>`;//A2がでてる
+              }
+                }
+            );
+
+            json.values.forEach(column =>{
+              if(column[1] === input){
+                inputMatchedc = true;
+                html = `<li>${column[2]}</li>`;//A2がでてる
+              }
+            }
+            );
+
+            html += "</ul>";
+            // forEach内で一つでも一致するものがあればinputMachedがtrueになっている
+            if (inputMatched) {
+
+              html += "<b>一致した文字列あり</b>";
+              document.querySelector("#result").innerHTML = html;
+            }
+
+            if(inputMatched2){
+              html += "<b>一致した文字列あり２</b>";
+              document.querySelector("#result").innerHTML = html;
+            }
+
+            if(inputMatchedc){
+              html += "<b>一致した文字列あり３</b>";
+              document.querySelector("#result").innerHTML = html;
+            }
+
+          }
+      );
+    }
+
+    function imitative() {
+
+      document.querySelector('#test').style.visibility = 'hidden';
+    }
+
+  </script>
+
+</head>
+<body>
+
+  <img id="Q1" src="Q1.png">
+  <img id="test" src="Folder1.png" onclick="imitative();" />
+  <input name="textBox1" id="id_textBox1" type="text" value="" />
+  <input type="button" value="Exec" onclick="onButtonClick();" />
+
+<hr/>
+<div id="result"></div>
+</body>
+</html>
