@@ -3,13 +3,20 @@ body {
   background-image: url("image/bg0.png");
   background-size: cover;
 }
+#result{
+  position: relative;
+  color: #ffffff;
+  z-index: 2;
+  left: 62%;
+  bottom: 350px;
+}
 
 #Folder1{
   width: 200px;
 
   position: relative;
-  bottom: 1000px;
-  right: 2000px;
+  bottom: 1300px;
+  right: 2150px;
 }
 
 #Folder2{
@@ -25,4 +32,35 @@ body {
 
   left: 1200px;
   top: 500px;
+}
+
+#JSelectProp{
+  color: #ffffff;
+  z-index: 1;
+  font-size: 450%;
+
+  position: relative;
+
+  left: 3350px;
+  top: 2200px;
+}
+
+#searcher{
+  position: relative;
+  left: 1350px;
+  bottom: 550px;
+}
+
+#id_textBox1{
+  position: relative;
+  left: 1350px;
+  bottom: 550px;
+}
+
+#cmd{
+  width: 2000px;
+  height: 1000px;
+  position: relative;
+  left: 3300px;
+
 }

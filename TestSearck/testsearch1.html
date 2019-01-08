@@ -5,6 +5,7 @@
   <title></title>
 
   <link rel="stylesheet" href="testcs.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.2.0/anime.js"></script>
   <script type="text/javascript" language="javascript">
       let donut1 = false;
       let donut2 = false;
@@ -102,11 +103,30 @@
       document.querySelector('#q2').style.visibility = 'hidden';
     }
 
+    function ss() {
+
+      var myObject = {
+        prop1: 0,
+        prop2: '0%'
+      }
+      var JSelectProp = anime({
+        targets: myObject,
+        prop1: 50,
+        prop2: '100%',
+        easing: 'linear',
+        round: 1,
+        update: function () {
+          var el = document.querySelector('#JSelectProp pre');
+          el.innerHTML = JSON.stringify(myObject);
+        }
+      });
+    }
   </script>
 
 </head>
 <body>
 
+  <div id="JSelectProp"><pre>{"prop1":24,"prop2":"1%"}</pre></div>
 
   <img id="Q1" src="Q1.png" style="visibility: hidden" onclick="imitative();" />
   <img id="Folder2" src="Folder2.png" style="visibility: hidden" onclick="Q2();"/>
@@ -114,6 +134,7 @@
   <img id="q2" src="q2.png" style="visibility: hidden" onclick="Q2los();"/>
   <input name="textBox1" id="id_textBox1" type="text" value="" />
   <input type="button" value="Exec" onclick="onButtonClick();" />
+  <input type="button" value="ani" onclick="ss();" />
 
 <hr/>
 <div id="result"></div>
