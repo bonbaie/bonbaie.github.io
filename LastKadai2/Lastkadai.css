@@ -4,10 +4,11 @@ body {
   background-size: cover;
 }
 #result{
-  position: relative;
+  font-size: 350%;
   color: #ffffff;
   z-index: 2;
-  left: 62%;
+  position: relative;
+  left: 63%;
   bottom: 350px;
 }
 
@@ -23,8 +24,8 @@ body {
   width: 200px;
 
   position: relative;
-  bottom: 600px;
-  right: 1790px;
+  bottom: 950px;
+  right: 1940px;
 }
 
 #Q1{
