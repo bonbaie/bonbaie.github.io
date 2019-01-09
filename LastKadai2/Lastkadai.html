@@ -40,14 +40,15 @@
                     inputMatched = true;
                     donut1 = true;
                     ss();
-                    html = `<li>${row[1]}</li>`;
+                    html += `<li>${row[1]} ${row[2]}</li>`;
                   }
 
 
-                  if (row[1] === input) {//B2と一致
+                  if (row[1] === input) {
                     inputMatched2 = true;
                     donut2 = true;
-                    html = `<li>${row[2]}</li>`;//A2がでてる
+                    ss2();
+                    html += `<li>${row[1]} ${row[2]}</li>`;
                   }
                 }
             );
@@ -55,7 +56,7 @@
             json.values.forEach(column => {
                   if (column[1] === input) {
                     inputMatchedc = true;
-                    html = `<li>${column[2]}</li>`;//A2がでてる
+                    //html = `<li>${column[2]}</li>`;
                   }
                 }
             );
@@ -122,25 +123,26 @@
 
           var el = document.querySelector('#JSelectProp pre');
           el.innerHTML = JSON.stringify(myObject);
+
+          //<img id="Q1" src="image/Q1.png" style="visibility: hidden" onclick="imitative();" />
+          //<img id="q2" src="image/q2.png" style="visibility: hidden" onclick="Q2los();"/>
         }
       });
     }
-
   </script>
 
 </head>
 <body>
-
 <div id="JSelectProp"><pre>{"prop1":30,"prop2":"1%"}</pre></div>
-<img id="Q1" src="image/Q1.png" style="visibility: hidden" onclick="imitative();" />
 <img id="Folder2" src="image/Folder2.png" style="visibility: hidden" onclick="Q2();"/>
 <img id="Folder1" src="image/Folder1.png" onclick="imitators();" />
-<img id="q2" src="image/q2.png" style="visibility: hidden" onclick="Q2los();"/>
 <img id="cmd" src="image/cmdnew.png">
 <input id="id_textBox1" name="textBox1" type="text" value="" />
-<input id="searcher" type="button" value="Exec" onclick="onButtonClick();" />
+<input id="searcher" type="button" value="Exec" onclick="onButtonClick();">
+<img id="Q1" src="image/Q1.png" style="visibility: hidden" onclick="imitative();" />
+<img id="q2" src="image/q2.png" style="visibility: hidden" onclick="Q2los();"/>
 
-<hr/>
+
 <div id="result"></div>
 </body>
 </html>
